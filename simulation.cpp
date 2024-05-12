@@ -5,6 +5,22 @@
 #include "include/ui.h"
 #include "include/Planet.h"
 #include <cmath>
+#include <ctime>
+
+
+std::string timestamp_to_date(long double timestamp) {
+    // Convert the Unix timestamp to time_t
+    time_t ts = static_cast<time_t>(timestamp);
+
+    // Convert time_t to a struct tm
+    struct tm* timeinfo = std::gmtime(&ts);
+
+    // Format the date as yyyy-mm-dd
+    char buffer[11]; // Buffer to hold formatted date (including null terminator)
+    std::strftime(buffer, sizeof(buffer), "%Y-%m-%d", timeinfo);
+
+    return std::string(buffer);
+}
 
 
 int main() 
@@ -78,6 +94,8 @@ int main()
     float delta = 0.0;
 
     long long int frame = 0;
+    long double time = 0.0;
+    long double time0 = 1715464800.0; // 12th of May 2024
 
     float time_from_save = 3600*24*2;
 
@@ -128,6 +146,7 @@ int main()
         }
 
         delta = clock.restart().asSeconds();
+        time += delta * modifier;
 
         window.clear();
         float rect_width = view.getSize().x;
@@ -146,10 +165,18 @@ int main()
         font.loadFromFile("fonts/Prototype.ttf");
         modifier_text.setFont(font);
         modifier_text.setString(std::to_string((long) modifier) + "x  (" + std::to_string((long) (modifier / (3600.0 * 24))) + " days/s)");
-        modifier_text.setCharacterSize(25);
-        modifier_text.setPosition(20, 20);
+        modifier_text.setCharacterSize(20);
+        modifier_text.setPosition(20, 60);
         window.draw(modifier_text);
 
+        sf::Text date_text;
+        date_text.setFont(font);
+        // date is human readable date as yyyy-mm-dd, converted from unix timestamp
+        std::string date = timestamp_to_date(time0 + time);
+        date_text.setString(date);
+        date_text.setCharacterSize(25);
+        date_text.setPosition(20, 20);
+        window.draw(date_text);
         window.setView(view);
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
