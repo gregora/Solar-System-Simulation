@@ -98,6 +98,10 @@ int main()
     sf::Text tracking_text;
     tracking_text.setFont(font);
 
+    sf::RectangleShape tracking_background(sf::Vector2f(250, 110));
+    tracking_background.setPosition(10, 140);
+    tracking_background.setFillColor(sf::Color(255, 255, 255, 20));
+
 
     FPS fps;
 	fps.setScale(0.5, 0.5);
@@ -108,6 +112,7 @@ int main()
     sf::Clock clock;
 
     float modifier = 3600*24;
+    float pause_modifier = 1.0;
     float delta = 0.0;
 
     long long int frame = 0;
@@ -195,22 +200,47 @@ int main()
                 }
             }
 
+            if(event.type == sf::Event::KeyReleased){
+                if(event.key.code == sf::Keyboard::Space){
+                    if(pause_modifier == 0.0){
+                        pause_modifier = 1.0;
+                    }else{
+                        pause_modifier = 0.0;
+                    }
+                }
 
+                if(event.key.code == sf::Keyboard::BackSpace){
+                    pause_modifier *= -1.0;
+
+                    if(pause_modifier == 0.0){
+                        pause_modifier = -1.0;
+                    }
+
+                    time_from_save = 3600*24*2;
+
+                    for(Planet& p : planets){
+                        p.x_history.clear();
+                        p.y_history.clear();
+                    }
+
+                }
+            }
         }
+
 
         for(uint i = 0; i < SUBCALCULATIONS; i++){
             bool save = false;
-            time_from_save += delta*modifier/SUBCALCULATIONS;
+            time_from_save += delta*modifier*abs(pause_modifier)/SUBCALCULATIONS;
             if(time_from_save > 3600*24*2){
                 save = true;
                 time_from_save = 0.0;
             }
 
-            simulate(planets, N, delta * modifier / SUBCALCULATIONS, save);
+            simulate(planets, N, delta * modifier*pause_modifier / SUBCALCULATIONS, save);
         }
 
         delta = clock.restart().asSeconds();
-        time += delta * modifier;
+        time += delta * pause_modifier * modifier;
 
         window.clear();
         float rect_width = view.getSize().x;
@@ -239,6 +269,8 @@ int main()
         window.draw(date_text);
 
         if(tracking != -1){
+            window.draw(tracking_background);
+
             tracking_text.setCharacterSize(20);
             tracking_text.setPosition(20, 150);
 
@@ -298,6 +330,34 @@ int main()
         {
             modifier *= 1 + delta * 1;
         }
+
+        if(pause_modifier == 0.0){
+            sf::RectangleShape pause_symbol(sf::Vector2f(10, 40));
+            pause_symbol.setFillColor(sf::Color::White);
+
+            pause_symbol.setPosition(W - 50, 60);
+            window.draw(pause_symbol);
+            pause_symbol.setPosition(W - 70, 60);
+            window.draw(pause_symbol);
+        }
+
+        if(pause_modifier == -1.0){
+            //draw two triangles
+            sf::ConvexShape triangle(3);
+            triangle.setPoint(0, sf::Vector2f(W - 20, 60));
+            triangle.setPoint(1, sf::Vector2f(W - 20, 100));
+            triangle.setPoint(2, sf::Vector2f(W - 60, 80));
+
+            triangle.setFillColor(sf::Color::White);
+            window.draw(triangle);
+
+            triangle.setPoint(0, sf::Vector2f(W - 50, 60));
+            triangle.setPoint(1, sf::Vector2f(W - 50, 100));
+            triangle.setPoint(2, sf::Vector2f(W - 90, 80));
+
+            window.draw(triangle);
+        }
+
 
         window.setView(view);
 
