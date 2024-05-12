@@ -84,10 +84,9 @@ void Planet::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     text.setFont(font);
     text.setString(name);
     text.setCharacterSize(60);
-
     text.setPosition(x, -y);
-
     text.setScale(height / 3000, height / 3000);
+    
     if(!is_moon){
         target.draw(text, states.transform*getTransform());
     }

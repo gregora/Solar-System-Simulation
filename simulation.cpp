@@ -85,6 +85,17 @@ int main()
     sf::Font font;
     font.loadFromFile("fonts/Prototype.ttf");
 
+    sf::Text modifier_text;
+    modifier_text.setFont(font);
+    modifier_text.setCharacterSize(20);
+    modifier_text.setPosition(20, 60);
+
+    sf::Text date_text;
+    date_text.setFont(font);
+    date_text.setCharacterSize(25);
+    date_text.setPosition(20, 20);
+
+
 
     FPS fps;
 	fps.setScale(0.5, 0.5);
@@ -166,55 +177,40 @@ int main()
         fps.setPosition(W - 100, 20);
         window.draw(fps);
 
-        sf::Text modifier_text;
-        modifier_text.setFont(font);
         modifier_text.setString(std::to_string((long) modifier) + "x  (" + std::to_string((long) (modifier / (3600.0 * 24))) + " days/s)");
-        modifier_text.setCharacterSize(20);
-        modifier_text.setPosition(20, 60);
         window.draw(modifier_text);
-
-        sf::Text date_text;
-        date_text.setFont(font);
+        
         std::string date = timestamp_to_date(time0 + time);
         date_text.setString(date);
-        date_text.setCharacterSize(25);
-        date_text.setPosition(20, 20);
         window.draw(date_text);
 
-        window.setView(view);
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
         {
             view.move(0, - delta * 0.2 *  rect_width);
-            window.setView(view);
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
         {
             view.move(0, delta * 0.2 * rect_width);
-            window.setView(view);
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
         {
             view.move(-delta * 0.2 * rect_width, 0);
-            window.setView(view);
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         {
             view.move(delta * 0.2 * rect_width, 0);
-            window.setView(view);
         }
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Add))
         {
             view.zoom(1.0 - delta*3.0);
-            window.setView(view);
         }
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Subtract))
         {
 
             view.zoom(1.0 + delta*3.0);
-            window.setView(view);
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y))
@@ -226,6 +222,8 @@ int main()
         {
             modifier *= 1 + delta * 1;
         }
+
+        window.setView(view);
         
 
         window.display();
