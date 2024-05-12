@@ -61,16 +61,16 @@ class Planet: public sf::Transformable, public sf::Drawable
                 sf::VertexArray shape(sf::LineStrip, n + 1);
                 
                 for(uint i = 0; i < n; i++){
-                    shape[i].position = sf::Vector2f(x_history[i], y_history[i]);
+                    shape[i].position = sf::Vector2f(x_history[i], -y_history[i]);
                     if(i == 0 && n == max_history){
-                        sf::Vector2f v1 = sf::Vector2f(x_history[1], y_history[1]) - sf::Vector2f(x_history[0], y_history[0]);
+                        sf::Vector2f v1 = sf::Vector2f(x_history[1], -y_history[1]) - sf::Vector2f(x_history[0], -y_history[0]);
                         float alpha = sqrt((x - x_history[n-1])*(x - x_history[n-1]) + (y - y_history[n-1])*(y - y_history[n-1])) / sqrt(v1.x * v1.x + v1.y * v1.y);
-                        shape[i].position = sf::Vector2f(x_history[0], y_history[0]) + alpha * v1;
+                        shape[i].position = sf::Vector2f(x_history[0], -y_history[0]) + alpha * v1;
                     }
                     
                     shape[i].color = color;
                 }
-                shape[n].position = sf::Vector2f(x, y);
+                shape[n].position = sf::Vector2f(x, -y);
                 shape[n].color = color;
                 target.draw(shape, states.transform*getTransform());
             }
@@ -84,7 +84,7 @@ class Planet: public sf::Transformable, public sf::Drawable
             
             sf::CircleShape circle(r);
             circle.setFillColor(sf::Color::Blue);
-            circle.setPosition(x, y);
+            circle.setPosition(x, -y);
             circle.setOrigin(r, r);
             circle.setFillColor(color);
 
@@ -110,7 +110,7 @@ class Planet: public sf::Transformable, public sf::Drawable
             text.setString(name);
             text.setCharacterSize(60);
 
-            text.setPosition(x, y);
+            text.setPosition(x, -y);
 
             text.setScale(height / 3000, height / 3000);
             if(!is_moon){
