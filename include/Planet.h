@@ -28,6 +28,8 @@ class Planet: public sf::Transformable, public sf::Drawable
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
+    private:
+    sf::Font font;
 
 };
 

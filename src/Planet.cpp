@@ -23,6 +23,9 @@ Planet::Planet(std::string name, double mass, double diameter, double x, double 
 
     this->draw_history = draw_history;
     this->is_moon = is_moon;
+
+    font.loadFromFile("fonts/Prototype.ttf");
+
 }
 
 Planet::Planet(){}
@@ -78,8 +81,6 @@ void Planet::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(circle, states.transform*getTransform());
 
     sf::Text text;
-    sf::Font font;
-    font.loadFromFile("fonts/Prototype.ttf");
     text.setFont(font);
     text.setString(name);
     text.setCharacterSize(60);

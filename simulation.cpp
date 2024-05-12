@@ -82,6 +82,10 @@ int main()
     view.zoom(zoom);
     window.setView(view);
 
+    sf::Font font;
+    font.loadFromFile("fonts/Prototype.ttf");
+
+
     FPS fps;
 	fps.setScale(0.5, 0.5);
 	fps.frame_average = 60;
@@ -157,12 +161,12 @@ int main()
         }
 
         window.setView(view_static);
+
         fps.update();
         fps.setPosition(W - 100, 20);
         window.draw(fps);
+
         sf::Text modifier_text;
-        sf::Font font;
-        font.loadFromFile("fonts/Prototype.ttf");
         modifier_text.setFont(font);
         modifier_text.setString(std::to_string((long) modifier) + "x  (" + std::to_string((long) (modifier / (3600.0 * 24))) + " days/s)");
         modifier_text.setCharacterSize(20);
@@ -171,12 +175,12 @@ int main()
 
         sf::Text date_text;
         date_text.setFont(font);
-        // date is human readable date as yyyy-mm-dd, converted from unix timestamp
         std::string date = timestamp_to_date(time0 + time);
         date_text.setString(date);
         date_text.setCharacterSize(25);
         date_text.setPosition(20, 20);
         window.draw(date_text);
+
         window.setView(view);
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
