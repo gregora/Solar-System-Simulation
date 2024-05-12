@@ -95,6 +95,8 @@ int main()
     date_text.setCharacterSize(25);
     date_text.setPosition(20, 20);
 
+    sf::Text tracking_text;
+    tracking_text.setFont(font);
 
 
     FPS fps;
@@ -157,7 +159,7 @@ int main()
                     bool found = false;
                     for(uint i = 0; i < N; i++){
 
-                        if(planets[i].name == "Sun"){
+                        if(planets[i].is_moon){
                             continue;
                         }
 
@@ -218,8 +220,7 @@ int main()
             window.setView(view);
         }
 
-        for (uint i = 0; i < N; i++)
-        {
+        for (uint i = 0; i < N; i++){
             window.draw(planets[i]);
         }
 
@@ -236,6 +237,24 @@ int main()
         std::string date = timestamp_to_date(time0 + time);
         date_text.setString(date);
         window.draw(date_text);
+
+        if(tracking != -1){
+            tracking_text.setCharacterSize(20);
+            tracking_text.setPosition(20, 150);
+
+            std::string tracking_name = planets[tracking].name;
+            tracking_text.setString(tracking_name);
+            window.draw(tracking_text);
+
+            tracking_text.setCharacterSize(15);
+            tracking_text.setPosition(20, 180);
+            std::string tracking_body = "";
+            tracking_body += "Mass: " + std::to_string((int) (planets[tracking].mass / 10e20)) + " x 10^20 kg\n";
+            tracking_body += "Radius: " + std::to_string((int) planets[tracking].diameter / 2) + " km\n";
+            tracking_body += "Orbital velocity: " + std::to_string((int) sqrt(planets[tracking].vx*planets[tracking].vx + planets[tracking].vy*planets[tracking].vy)) + " km/s\n";
+            tracking_text.setString(tracking_body);
+            window.draw(tracking_text);
+        }
 
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
