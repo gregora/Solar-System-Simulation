@@ -176,7 +176,6 @@ int main()
                     if(!found){
                         tracking = -1;
                     }
-
                 }
             }
 
@@ -211,10 +210,16 @@ int main()
         window.clear();
         float rect_width = view.getSize().x;
 
+
         for (uint i = 0; i < N; i++)
         {
             window.draw(planets[i]);
         }
+
+        if(tracking != -1){
+            view.setCenter(planets[tracking].x, -planets[tracking].y);
+        }
+
 
         window.setView(view_static);
 
@@ -273,10 +278,6 @@ int main()
         }
 
         window.setView(view);
-
-        if(tracking != -1){
-            view.setCenter(planets[tracking].x, -planets[tracking].y);
-        }
 
         window.display();
         frame++;

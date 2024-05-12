@@ -46,6 +46,7 @@ void Planet::draw(sf::RenderTarget& target, sf::RenderStates states) const {
             }
             
             shape[i].color = color;
+            shape[i].color.a = 255 * exp(- (float) (n - i) / n);
         }
         shape[n].position = sf::Vector2f(x, -y);
         shape[n].color = color;
