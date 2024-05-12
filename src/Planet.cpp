@@ -68,14 +68,14 @@ void Planet::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
     if(apparent_size < 0.01){
 
-        circle.setScale(0.005/ apparent_size, 0.005 / apparent_size);
+        circle.setScale(0.005 / apparent_size, 0.005 / apparent_size);
     
         if(name == "Sun"){
-            circle.setScale(0.01/ apparent_size, 0.01 / apparent_size);
+            circle.setScale(0.01 / apparent_size, 0.01 / apparent_size);
         }
 
         if(is_moon){
-            circle.setScale(0.0025/ apparent_size, 0.0025 / apparent_size);
+            circle.setScale(0.0025 / apparent_size, 0.0025 / apparent_size);
         }
     }
 
