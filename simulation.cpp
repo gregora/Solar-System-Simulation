@@ -164,9 +164,12 @@ int main()
                         float px = planets[i].x;
                         float py = -planets[i].y;
 
-                        float d = sqrt((px - world_pos.x)*(px - world_pos.x) + (py - world_pos.y)*(py - world_pos.y));
+                        sf::Vector2i pos = window.mapCoordsToPixel(sf::Vector2f(px, py));
 
-                        if(d < 1000*planets[i].diameter / 2){
+
+                        float d = sqrt(pow(pos.x - mouse_pos.x, 2) + pow(pos.y - mouse_pos.y, 2));
+
+                        if(d < 10){
                             tracking = i;
                             found = true;
                         }
