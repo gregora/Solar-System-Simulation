@@ -1,0 +1,42 @@
+{
+    "Sun": {
+        "mass": 1.989e30,
+        "diameter": 1.3927e6
+    },
+    "Mercury": {
+        "mass": 0.330e24,
+        "diameter": 4879
+    },
+    "Venus": {
+        "mass": 4.87e24,
+        "diameter": 12104
+    },
+    "Earth": {
+        "mass": 5.97e24,
+        "diameter": 12756
+    },
+    "Mars": {
+        "mass": 0.642e24,
+        "diameter": 6792
+    },
+    "Jupiter": {
+        "mass": 1898e24,
+        "diameter": 142984
+    },
+    "Saturn": {
+        "mass": 568e24,
+        "diameter": 120536
+    },
+    "Uranus": {
+        "mass": 86.8e24,
+        "diameter": 51118
+    },
+    "Neptune": {
+        "mass": 102e24,
+        "diameter": 49528
+    },
+    "Moon": {
+        "mass": 0.07346e24,
+        "diameter": 3475
+    }
+}
