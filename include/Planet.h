@@ -17,7 +17,7 @@ class Planet: public sf::Transformable, public sf::Drawable
 
     sf::Color color;
 
-    float max_history = 100;
+    float max_history = 200;
     std::vector<double> x_history;
     std::vector<double> y_history;
     bool draw_history = true;
