@@ -114,6 +114,8 @@ int main()
 
     float time_from_save = 3600*24*2;
 
+    int tracking = -1;
+
     while (window.isOpen())
     {
         sf::Event event;
@@ -144,6 +146,49 @@ int main()
                 view_static.setCenter(visibleArea.width / 2, visibleArea.height / 2);
             
 
+            }
+            
+            if (event.type == sf::Event::MouseButtonReleased){
+                if (event.mouseButton.button == sf::Mouse::Left){
+                    
+                    sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
+                    sf::Vector2f world_pos = window.mapPixelToCoords(mouse_pos);
+
+                    bool found = false;
+                    for(uint i = 0; i < N; i++){
+
+                        if(planets[i].name == "Sun"){
+                            continue;
+                        }
+
+                        float px = planets[i].x;
+                        float py = -planets[i].y;
+
+                        float d = sqrt((px - world_pos.x)*(px - world_pos.x) + (py - world_pos.y)*(py - world_pos.y));
+
+                        if(d < 1000*planets[i].diameter / 2){
+                            tracking = i;
+                            found = true;
+                        }
+
+                    }
+
+                    if(!found){
+                        tracking = -1;
+                    }
+
+                }
+            }
+
+            if(event.type == sf::Event::MouseWheelScrolled){
+                if (event.mouseWheelScroll.delta > 0)
+                {
+                    view.zoom(1.0 - 0.3);
+                }
+                else if (event.mouseWheelScroll.delta < 0)
+                {
+                    view.zoom(1.0 + 0.3);
+                }
             }
 
 
@@ -188,18 +233,22 @@ int main()
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
         {
             view.move(0, - delta * 0.2 *  rect_width);
+            tracking = -1;
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
         {
             view.move(0, delta * 0.2 * rect_width);
+            tracking = -1;
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
         {
             view.move(-delta * 0.2 * rect_width, 0);
+            tracking = -1;
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         {
             view.move(delta * 0.2 * rect_width, 0);
+            tracking = -1;
         }
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Add))
@@ -224,7 +273,10 @@ int main()
         }
 
         window.setView(view);
-        
+
+        if(tracking != -1){
+            view.setCenter(planets[tracking].x, -planets[tracking].y);
+        }
 
         window.display();
         frame++;

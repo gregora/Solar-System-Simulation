@@ -1,6 +1,6 @@
 #include "../include/Planet.h"
 
-Planet::Planet(std::string name, double mass, double diameter, double x, double y, double z, double vx, double vy, double vz, sf::Color color, bool draw_history, bool is_moon)
+Planet::Planet(std::string name, long double mass, long double diameter, long double x, long double y, long double z, long double vx, long double vy, long double vz, sf::Color color, bool draw_history, bool is_moon)
 {
     this->name = name;
     this->mass = mass;
@@ -110,13 +110,13 @@ void simulate(Planet planets[], uint N, float delta, bool save_history)
         {
             if (i != j)
             {
-                double dx = planets[j].x - planets[i].x;
-                double dy = planets[j].y - planets[i].y;
-                double dz = planets[j].z - planets[i].z;
+                long double dx = planets[j].x - planets[i].x;
+                long double dy = planets[j].y - planets[i].y;
+                long double dz = planets[j].z - planets[i].z;
 
-                double r = 1000.0f * sqrt(dx * dx + dy * dy + dz * dz);
+                long double r = 1000.0f * sqrt(dx * dx + dy * dy + dz * dz);
 
-                double F = 6.67430e-11 * planets[i].mass * planets[j].mass / (r * r);
+                long double F = 6.67430e-11 * planets[i].mass * planets[j].mass / (r * r);
 
                 planets[i].ax += F * dx / r / planets[i].mass;
                 planets[i].ay += F * dy / r / planets[i].mass;

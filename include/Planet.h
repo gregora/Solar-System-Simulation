@@ -9,20 +9,20 @@ class Planet: public sf::Transformable, public sf::Drawable
     public:
     std::string name;
     bool is_moon = false;
-    double mass;
-    double diameter;
-    double x, y, z;
-    double vx, vy, vz;
-    double ax, ay, az;
+    long double mass;
+    long double diameter;
+    long double x, y, z;
+    long double vx, vy, vz;
+    long double ax, ay, az;
 
     sf::Color color;
 
-    float max_history = 200;
-    std::vector<double> x_history;
-    std::vector<double> y_history;
+    uint max_history = 200;
+    std::vector<long double> x_history;
+    std::vector<long double> y_history;
     bool draw_history = true;
 
-    Planet(std::string name, double mass, double diameter, double x, double y, double z, double vx, double vy, double vz, sf::Color color = sf::Color(0, 0, 255), bool draw_history = true, bool is_moon = false);
+    Planet(std::string name, long double mass, long double diameter, long double x, long double y, long double z, long double vx, long double vy, long double vz, sf::Color color = sf::Color(0, 0, 255), bool draw_history = true, bool is_moon = false);
 
     Planet();
 
