@@ -1,6 +1,30 @@
 # Solar-System-Simulation
 A numeric simulation for solar system using a simple Euler integration. Initial conditions are taken from NASA JPL Horizons database.
 
+## Theoretical background
+
+The simulation is based on Newton's law of universal gravitation. The force between two bodies is given by the formula:
+$$
+F = G \frac{m_1 m_2}{r^2}
+$$
+where $G$ is the gravitational constant, $m_1$ and $m_2$ are masses of the bodies and $r$ is the distance between them.
+
+By dividng the force by the mass of the body, we get the acceleration of the body:
+$$
+a = \frac{F}{m} = G \frac{m_{\text{2}}}{r^2}
+$$
+where $m_2$ is the mass of the other body.
+
+Using simple Euler integration, we can then calculate the new position and velocity of the body at each time step:
+$$
+v_{\text{k+1}} = v_{\text{k}} + a \Delta t
+$$
+
+$$
+x_{\text{k+1}} = x_{\text{k}} + v_{\text{k+1}} \Delta t
+$$
+
+
 ## Showcase
 ![Solar System Simulation](img/showcase.png)
 ![Solar System Simulation - Earth](img/showcase_earth.png)
