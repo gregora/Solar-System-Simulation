@@ -62,3 +62,10 @@ To run the project, run ```./simulation```.
 * `-`: Zoom out
 
 By clicking a planet you can follow it.
+
+## Notes
+
+I have validated the results using the simple Euler integration by crossreferencing them with the results from the NASA JPL Horizons database and the error is minimal.
+Due to the simplicity of the method, small computational cost and the fact that the simulation is not very sensitive to the error, I have decided to stick with the simple Euler integration.
+However, it should be noted that the method was not tested for 
+long-term simulations (>100 years).
