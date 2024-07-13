@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
-#include <jsoncpp/json/json.h>
+// #include <jsoncpp/json/json.h> // Ubuntu
+#include <json/json.h> // Fedora
+
 #include <SFML/Graphics.hpp>
 #include "include/ui.h"
 #include "include/Planet.h"
